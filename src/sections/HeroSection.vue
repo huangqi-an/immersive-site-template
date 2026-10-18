@@ -1,6 +1,37 @@
 <script setup lang="ts">
-// 首屏 Hero：背景用纯 CSS 光晕 + 网格 + 噪点合成，
-// 不依赖任何美术素材，替换成视频/立绘时只需塞进 .hero__media 层。
+import { onMounted, onUnmounted } from "vue";
+import gsap from "gsap";
+
+/**
+ * 首屏是「入场动画」，不跟滚动绑定：
+ * 用一条 timeline 在挂载后立刻播放，避免用户还没滚动就看到静态排版。
+ */
+let ctx: gsap.Context | null = null;
+
+onMounted(() => {
+  const reduced = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
+  if (reduced) return;
+
+  ctx = gsap.context(() => {
+    const tl = gsap.timeline({
+      defaults: { ease: "power3.out", duration: 1.1 },
+    });
+
+    tl.from(".hero__bg", { opacity: 0, duration: 1.6 }, 0)
+      .from(".hero__title-main", { yPercent: 22, opacity: 0 }, 0.1)
+      .from(".hero__title-sub", { y: 24, opacity: 0 }, 0.45)
+      .from(".eyebrow", { y: 14, opacity: 0, duration: 0.8 }, 0.5)
+      .from(".hero__lede", { y: 20, opacity: 0 }, 0.6)
+      .from(".hero__actions .btn", { y: 18, opacity: 0, stagger: 0.1 }, 0.72)
+      .from(".hero__scroll", { opacity: 0, duration: 0.8 }, 1.1);
+  });
+});
+
+onUnmounted(() => {
+  ctx?.revert();
+});
 </script>
 
 <template>
