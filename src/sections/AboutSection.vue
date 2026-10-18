@@ -2,6 +2,7 @@
 import { onMounted, onUnmounted, ref } from "vue";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useReveal } from "../composables/useReveal";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -13,6 +14,8 @@ gsap.registerPlugin(ScrollTrigger);
 const root = ref<HTMLElement | null>(null);
 const orb = ref<HTMLElement | null>(null);
 let ctx: gsap.Context | null = null;
+
+useReveal(root);
 
 const paragraphs = [
   {
@@ -29,38 +32,19 @@ const paragraphs = [
 
 onMounted(() => {
   const el = root.value;
-  if (!el) return;
+  if (!el || !orb.value) return;
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
   ctx = gsap.context(() => {
-    const reduced = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    ).matches;
-
-    if (!reduced && orb.value) {
-      gsap.to(orb.value, {
-        yPercent: 26,
-        ease: "none",
-        scrollTrigger: {
-          trigger: el,
-          start: "top bottom",
-          end: "bottom top",
-          scrub: true,
-        },
-      });
-    }
-
-    if (reduced) return;
-
-    // 注意：这里必须用 el.querySelectorAll，不能用 gsap.utils.toArray，
-    // 后者不受 context 作用域限制，会把别的 section 的 [data-reveal] 一起选进来。
-    el.querySelectorAll<HTMLElement>("[data-reveal]").forEach((item) => {
-      gsap.from(item, {
-        y: 34,
-        opacity: 0,
-        duration: 0.9,
-        ease: "power3.out",
-        scrollTrigger: { trigger: item, start: "top 84%", once: true },
-      });
+    gsap.to(orb.value, {
+      yPercent: 26,
+      ease: "none",
+      scrollTrigger: {
+        trigger: el,
+        start: "top bottom",
+        end: "bottom top",
+        scrub: true,
+      },
     });
   }, el);
 });
