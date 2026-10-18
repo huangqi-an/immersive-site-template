@@ -1,8 +1,10 @@
 <div align="center">
 
-# SERAPH
+# Immersive Site Template
 
 **沉浸式官网模板** · 为游戏、番剧与世界观企划准备的叙事型落地页
+
+演示品牌：SERAPH
 
 Vue 3 · Vite · TypeScript · GSAP ScrollTrigger · Lenis
 
