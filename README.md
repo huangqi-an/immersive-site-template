@@ -71,6 +71,7 @@
 npm install
 npm run dev      # / 和 /single-screen/ 同时可用
 npm run build    # tsc 类型检查 + 双入口构建
+npm test         # Vitest：shared 层的行为约定
 ```
 
 构建产物是纯静态文件，可以直接扔到任何静态托管上，不需要 Node 运行时。
@@ -150,7 +151,7 @@ Chrome / Edge / Safari 最新两个版本，Firefox 最新版。
 
 ## Roadmap
 
-- [ ] Vitest 覆盖 shared 层（reveal 降级分支、preloader 最短时长、pageSwitch 边界）
+- [x] Vitest 覆盖 shared 层（pageSwitch 边界 / reveal 降级 / preloader 时长，共 15 例）
 - [ ] Playwright 视觉回归（防止改动画改崩版式）
 - [ ] 可选适配包：把 `shared/` 包成 Vue / React composable（核心保持无框架）
 - [ ] 主题预设（暗色 / 亮色 / 高对比）

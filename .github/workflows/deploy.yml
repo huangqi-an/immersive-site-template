@@ -29,6 +29,10 @@ jobs:
 
       - run: npm ci
 
+      # 测试不过就不部署
+      - name: Test
+        run: npm test
+
       # base 从仓库名推导：项目页为 /<repo>/，用户页（<user>.github.io）则为 /
       - name: Build
         run: npm run build

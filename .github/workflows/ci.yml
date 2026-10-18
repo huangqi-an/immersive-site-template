@@ -17,5 +17,8 @@ jobs:
 
       - run: npm ci
 
-      # build 脚本内含 vue-tsc，类型错误会让 CI 直接失败
+      - name: Test
+        run: npm test
+
+      # build 脚本内含 tsc -b，类型错误会让 CI 直接失败
       - run: npm run build
