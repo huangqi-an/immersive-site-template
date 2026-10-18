@@ -12,7 +12,330 @@
     <title>SERAPH — 沉浸式官网模板</title>
   </head>
   <body>
-    <div id="app"></div>
+    <div id="app">
+      <!-- ============ 顶部导航 ============ -->
+      <header class="nav">
+        <div class="nav__inner container">
+          <a class="nav__brand" href="#hero">
+            <span class="nav__mark" aria-hidden="true"></span>
+            SERAPH
+          </a>
+
+          <nav class="nav__links" aria-label="章节导航">
+            <a href="#works">作品</a>
+            <a href="#about">叙事</a>
+            <a href="#news">更新</a>
+          </nav>
+
+          <div class="nav__actions">
+            <div class="nav__lang" role="group" aria-label="语言切换">
+              <button type="button" class="is-active">简</button>
+              <button type="button">繁</button>
+              <button type="button">EN</button>
+            </div>
+            <a class="nav__cta" href="#download">预约</a>
+          </div>
+        </div>
+      </header>
+
+      <main class="page">
+        <!-- ============ 首屏 ============ -->
+        <section id="hero" class="hero">
+          <div class="hero__bg" aria-hidden="true">
+            <div class="hero__glow hero__glow--violet"></div>
+            <div class="hero__glow hero__glow--cyan"></div>
+            <div class="hero__grid"></div>
+            <div class="hero__noise"></div>
+          </div>
+
+          <div class="container hero__inner">
+            <p class="eyebrow">Prologue — 序章</p>
+
+            <h1 class="display hero__title">
+              <span class="hero__title-main">SERAPH</span>
+              <em class="hero__title-sub">星之回响</em>
+            </h1>
+
+            <p class="lede hero__lede">
+              沉浸式官网模板。为游戏、番剧与世界观企划准备的叙事型落地页，
+              内置滚动动效、视频首屏与主题系统。
+            </p>
+
+            <div class="hero__actions">
+              <a class="btn btn--primary" href="#works"><span>开始探索</span></a>
+              <a class="btn" href="#about">查看文档</a>
+            </div>
+          </div>
+
+          <div class="hero__scroll" aria-hidden="true">
+            <span>Scroll</span>
+            <i></i>
+          </div>
+        </section>
+
+        <!-- ============ 滚动文字带 ============ -->
+        <section class="marquee" aria-hidden="true">
+          <div class="marquee__row">
+            <div class="marquee__track">
+              <span class="marquee__chunk">
+                <em>RESONANCE</em><em>世界観</em><em>ORIGINAL SOUNDTRACK</em><em>CHARACTER</em><em>PROLOGUE</em>
+              </span>
+              <span class="marquee__chunk">
+                <em>RESONANCE</em><em>世界観</em><em>ORIGINAL SOUNDTRACK</em><em>CHARACTER</em><em>PROLOGUE</em>
+              </span>
+            </div>
+          </div>
+
+          <div class="marquee__row marquee__row--reverse">
+            <div class="marquee__track marquee__track--reverse">
+              <span class="marquee__chunk">
+                <em>SCROLL</em><em>叙事</em><em>ILLUSTRATION</em><em>MOTION</em><em>EPISODE 01</em>
+              </span>
+              <span class="marquee__chunk">
+                <em>SCROLL</em><em>叙事</em><em>ILLUSTRATION</em><em>MOTION</em><em>EPISODE 01</em>
+              </span>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============ 作品（横向滚动，data-pin-gallery 自动接管） ============ -->
+        <section id="works" class="works" data-pin-gallery>
+          <header class="works__head container">
+            <p class="eyebrow">Selected Works — 作品</p>
+            <h2 class="display works__title">
+              WORKS
+              <em>滚动横向浏览</em>
+            </h2>
+          </header>
+
+          <div class="works__viewport">
+            <div class="works__track">
+              <article class="card">
+                <div class="card__media">
+                  <span class="card__index">01</span>
+                  <span class="card__tag">Key Visual</span>
+                </div>
+                <div class="card__meta">
+                  <h3 class="card__title">星海列车</h3>
+                  <p class="card__en">STARLIT EXPRESS</p>
+                  <span class="card__year">2026</span>
+                </div>
+              </article>
+
+              <article class="card">
+                <div class="card__media">
+                  <span class="card__index">02</span>
+                  <span class="card__tag">Character</span>
+                </div>
+                <div class="card__meta">
+                  <h3 class="card__title">灰烬回廊</h3>
+                  <p class="card__en">ASHEN CORRIDOR</p>
+                  <span class="card__year">2026</span>
+                </div>
+              </article>
+
+              <article class="card">
+                <div class="card__media">
+                  <span class="card__index">03</span>
+                  <span class="card__tag">Worldview</span>
+                </div>
+                <div class="card__meta">
+                  <h3 class="card__title">潮汐观测</h3>
+                  <p class="card__en">TIDE OBSERVER</p>
+                  <span class="card__year">2025</span>
+                </div>
+              </article>
+
+              <article class="card">
+                <div class="card__media">
+                  <span class="card__index">04</span>
+                  <span class="card__tag">Concept</span>
+                </div>
+                <div class="card__meta">
+                  <h3 class="card__title">残响计划</h3>
+                  <p class="card__en">ECHO PROJECT</p>
+                  <span class="card__year">2025</span>
+                </div>
+              </article>
+
+              <div class="works__end">
+                <p class="eyebrow">More soon</p>
+                <p class="works__end-text">下一章<br />正在制作中</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============ 叙事 ============ -->
+        <section id="about" class="about section">
+          <div class="about__orb" aria-hidden="true"></div>
+
+          <div class="container about__grid">
+            <div class="about__aside">
+              <p class="eyebrow" data-reveal>About — 关于</p>
+              <h2 class="display about__title" data-reveal>
+                叙事<br /><em>NARRATIVE</em>
+              </h2>
+              <p class="lede about__intro" data-reveal>
+                一个模板不该只是几张好看的截图。它需要一套能承载世界观的结构：
+                章节、角色、时间线、公告，各归其位。
+              </p>
+            </div>
+
+            <div class="about__body">
+              <article class="about__item" data-reveal>
+                <span class="about__year">2026</span>
+                <h3 class="about__item-title">世界观先行</h3>
+                <p class="about__text">
+                  先写设定集，再写页面。角色、阵营、时间线定下来之后，版式才有据可依，而不是把素材往模板里塞。
+                </p>
+              </article>
+
+              <article class="about__item" data-reveal>
+                <span class="about__year">2025</span>
+                <h3 class="about__item-title">动效服务于叙事</h3>
+                <p class="about__text">
+                  滚动是唯一的输入设备。每一段动效都对应一个信息层级：揭示、强调、转场，不做无意义的漂浮。
+                </p>
+              </article>
+
+              <ul class="about__stats" data-reveal>
+                <li>
+                  <strong>06</strong>
+                  <span>可组合章节</span>
+                </li>
+                <li>
+                  <strong>55<em>KB</em></strong>
+                  <span>首屏 JS（gzip）</span>
+                </li>
+                <li>
+                  <strong>AA</strong>
+                  <span>对比度目标</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============ 更新公告 ============ -->
+        <section id="news" class="news section">
+          <div class="container">
+            <header class="news__head">
+              <p class="eyebrow" data-reveal>Update — 更新</p>
+              <h2 class="display news__title" data-reveal>
+                LATEST
+                <em>版本与活动</em>
+              </h2>
+            </header>
+
+            <ul class="news__list">
+              <li class="news__row" data-reveal>
+                <a class="news__link" href="#news">
+                  <span class="news__version">v2.4</span>
+                  <span class="news__date">2026.10.12</span>
+                  <span class="news__text">「灰烬回廊」版本上线，新增可探索区域与角色章节</span>
+                  <span class="news__tag">更新</span>
+                  <span class="news__arrow" aria-hidden="true">↗</span>
+                </a>
+              </li>
+              <li class="news__row" data-reveal>
+                <a class="news__link" href="#news">
+                  <span class="news__version">v2.3</span>
+                  <span class="news__date">2026.09.20</span>
+                  <span class="news__text">原声带第二辑公开，收录 18 首场景配乐</span>
+                  <span class="news__tag">音乐</span>
+                  <span class="news__arrow" aria-hidden="true">↗</span>
+                </a>
+              </li>
+              <li class="news__row" data-reveal>
+                <a class="news__link" href="#news">
+                  <span class="news__version">v2.2</span>
+                  <span class="news__date">2026.08.30</span>
+                  <span class="news__text">夏日活动「潮汐观测」开启，限时剧情与外观同步开放</span>
+                  <span class="news__tag">活动</span>
+                  <span class="news__arrow" aria-hidden="true">↗</span>
+                </a>
+              </li>
+              <li class="news__row" data-reveal>
+                <a class="news__link" href="#news">
+                  <span class="news__version">v2.1</span>
+                  <span class="news__date">2026.08.02</span>
+                  <span class="news__text">画面与手感优化：重构渲染管线，移动端帧率提升</span>
+                  <span class="news__tag">优化</span>
+                  <span class="news__arrow" aria-hidden="true">↗</span>
+                </a>
+              </li>
+            </ul>
+
+            <div class="news__more" data-reveal>
+              <a class="btn" href="#news">查看全部公告</a>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <!-- ============ 尾屏 ============ -->
+      <footer id="download" class="footer">
+        <div class="footer__glow" aria-hidden="true"></div>
+
+        <div class="container">
+          <div class="footer__cta">
+            <p class="eyebrow" data-reveal>Prologue — 序章</p>
+            <h2 class="display footer__title" data-reveal>
+              故事<br /><em>从这里开始</em>
+            </h2>
+
+            <div class="footer__platforms" data-reveal>
+              <a class="platform" href="#download"><span>Windows</span><i aria-hidden="true">↗</i></a>
+              <a class="platform" href="#download"><span>iOS</span><i aria-hidden="true">↗</i></a>
+              <a class="platform" href="#download"><span>Android</span><i aria-hidden="true">↗</i></a>
+              <a class="platform" href="#download"><span>PlayStation</span><i aria-hidden="true">↗</i></a>
+            </div>
+          </div>
+
+          <div class="hairline footer__line"></div>
+
+          <div class="footer__bottom">
+            <div class="footer__brand">
+              <span class="footer__brand-name">SERAPH</span>
+              <p class="footer__brand-desc">
+                沉浸式官网模板。代码 MIT，文案与图文均为演示用占位内容。
+              </p>
+            </div>
+
+            <nav class="footer__group">
+              <p class="footer__group-title">站点</p>
+              <a href="#download">作品</a>
+              <a href="#download">叙事</a>
+              <a href="#download">更新</a>
+              <a href="#download">原声带</a>
+            </nav>
+
+            <nav class="footer__group">
+              <p class="footer__group-title">社区</p>
+              <a href="#download">Discord</a>
+              <a href="#download">X / Twitter</a>
+              <a href="#download">YouTube</a>
+              <a href="#download">bilibili</a>
+            </nav>
+
+            <nav class="footer__group">
+              <p class="footer__group-title">关于</p>
+              <a href="#download">制作组</a>
+              <a href="#download">招聘</a>
+              <a href="#download">联系我们</a>
+              <a href="#download">隐私政策</a>
+            </nav>
+          </div>
+
+          <div class="footer__legal">
+            <span>© 2026 SERAPH Template</span>
+            <span>Built with GSAP · Lenis · Vite</span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
     <script type="module" src="/src/demos/scroll-story/main.ts"></script>
   </body>
 </html>

@@ -6,7 +6,7 @@
 
 演示品牌：SERAPH
 
-Vue 3 · Vite · TypeScript · GSAP · Lenis
+**零框架运行时** · Vite · TypeScript · GSAP · Lenis
 
 [滚动叙事版](https://huangqi-an.github.io/immersive-site-template/) ·
 [单屏切页版](https://huangqi-an.github.io/immersive-site-template/single-screen/) ·
@@ -30,10 +30,21 @@ Vue 3 · Vite · TypeScript · GSAP · Lenis
 
 两者共用同一套设计令牌与行为层，差异只在「导航模型」。
 
+## 为什么没有框架
+
+这类页面的标记是**内容**，不是逻辑。挂一个 Vue/React 运行时进来，换来的是
+`v-for` 和组件封装，代价是版本升级债、构建配置和约 25KB 的运行时。
+
+所以这里只有 HTML + CSS + 少量 TS：
+
+- 结构直接写在 `index.html` 里，**加/删/调顺序都是改 HTML**，不用改路由或组件树
+- 行为靠 `data-*` 属性声明式挂载（`data-reveal`、`data-pin-gallery`、`data-screen`）
+- 控制器都做空值判断：页面上没有对应元素就跳过，不会因为删了一个 section 报错
+
 ## 这是什么
 
 一套可组合的官网骨架。改 `tokens.css` 换视觉，改 section 顺序换结构，
-不需要重写动画逻辑——`src/shared/` 里的滚动、揭示、预加载都不依赖 Vue。
+不需要重写动画逻辑——`src/shared/` 里的滚动、揭示、预加载、切屏都不依赖任何框架。
 
 ## 这不是什么
 
@@ -45,11 +56,12 @@ Vue 3 · Vite · TypeScript · GSAP · Lenis
 
 | | |
 |---|---|
+| **零框架** | 无 Vue/React 运行时，JS 只有 GSAP + Lenis |
 | **滚动叙事** | GSAP ScrollTrigger + Lenis，`raf` 挂在 `gsap.ticker` 上，进度不抖帧 |
 | **横向画廊** | 桌面端 pin + scrub，移动端自动退化为原生横向滚动 + scroll-snap |
-| **单屏切页** | 所有屏常驻 DOM，靠 `visibility` 切换；连点可打断上一条时间线，不丢输入 |
+| **单屏切页** | 屏幕常驻 DOM，靠 `visibility` 切换；连点可打断上一条时间线，不丢输入 |
 | **预加载** | 等待字体/关键资源 + 最短展示时长，避免 loading 一闪而过 |
-| **可降级** | `prefers-reduced-motion` 下不初始化平滑滚动，动画全部跳过而非缩短 |
+| **可降级** | `prefers-reduced-motion` 下不初始化平滑滚动，切屏直接切换，动画全部跳过 |
 | **垂直适配** | 单屏版内置竖屏提示，横屏体验不被挤压 |
 | **主题令牌** | 颜色、字体、间距、缓动集中在 `src/styles/tokens.css` |
 
@@ -58,8 +70,10 @@ Vue 3 · Vite · TypeScript · GSAP · Lenis
 ```bash
 npm install
 npm run dev      # / 和 /single-screen/ 同时可用
-npm run build    # vue-tsc 类型检查 + 双入口构建
+npm run build    # tsc 类型检查 + 双入口构建
 ```
+
+构建产物是纯静态文件，可以直接扔到任何静态托管上，不需要 Node 运行时。
 
 ## 部署
 
@@ -73,38 +87,42 @@ npm run build    # vue-tsc 类型检查 + 双入口构建
 ## 目录结构
 
 ```
+index.html                     滚动叙事模板的全部标记（改结构就改这里）
+single-screen/index.html       单屏模板的全部标记
 src/
-├── shared/                      框架无关的行为层（纯 TS，React 版可直接复用）
-│   ├── smoothScroll.ts          Lenis + GSAP ticker 同步，返回 destroy()
-│   ├── reveal.ts                [data-reveal] 进入视口淡入
-│   └── preloader.ts             资源就绪 + 最短展示时长
+├── shared/                    框架无关的行为层，纯 TS
+│   ├── smoothScroll.ts        Lenis + GSAP ticker 同步，返回 destroy()
+│   ├── reveal.ts              [data-reveal] 进入视口淡入
+│   ├── worksGallery.ts        [data-pin-gallery] 横向 pin + scrub
+│   ├── pageSwitch.ts          [data-screen] 切屏状态机
+│   └── preloader.ts           资源就绪 + 最短展示时长
 ├── styles/
-│   ├── tokens.css               设计令牌
-│   └── base.css                 reset + 版式工具（滚动版用）
+│   ├── tokens.css             设计令牌
+│   └── base.css               reset + 版式工具（滚动版用）
 └── demos/
     ├── scroll-story/
-    │   ├── App.vue              章节编排
-    │   ├── SiteNav.vue          顶部导航
-    │   ├── sections/            6 个章节（各自带同名 .css）
-    │   └── composables/         Vue 胶水：onMounted → shared → onUnmounted
+    │   ├── main.ts            行为装配（哪个 data-* 挂哪个模块）
+    │   └── sections/*.css     每个章节一个样式文件
     └── single-screen/
-        ├── App.vue              切屏状态机 + GSAP 转场
-        ├── screens.ts           屏幕数据
-        └── screens.css          页面级样式（接管 body overflow）
+        ├── main.ts            切屏装配 + 预加载接线
+        └── screens.css        页面级样式（接管 body overflow）
 ```
 
 ## 定制
 
-**换主题**：只改 `tokens.css` 里的变量。`--accent` / `--accent-2` 决定整站色相。
+**换主题**：只改 `src/styles/tokens.css` 里的变量。`--accent` / `--accent-2` 决定整站色相。
 
-**加一个章节**：在 `demos/scroll-story/sections/` 新建组件与同名 `.css`，
-内容元素加 `data-reveal` 即可获得入场动画，然后在 `App.vue` 里按顺序挂上。
-要参与 pin/scrub 的章节参考 `WorksSection.vue` 的 `gsap.matchMedia` 写法。
+**加一个章节**：在 `index.html` 里粘一段 `<section>`，内容元素加 `data-reveal` 就有入场动画；
+需要新样式就在 `src/demos/scroll-story/sections/` 建同名 `.css` 并在 `main.ts` 里多引一行。
+不需要注册组件、不需要改路由。
 
-**加一屏**：往 `demos/single-screen/screens.ts` 里追加一个对象，
-`accent` 决定该屏的色相，其余由 `App.vue` 的转场统一处理。
+**调顺序 / 删章节**：直接改 HTML 的位置或删掉整段即可，JS 不会因为找不到元素而报错。
 
-**替换首屏为视频**：在 `HeroSection.vue` 的 `.hero__bg` 内加
+**加一屏**：在 `single-screen/index.html` 里复制一个 `<section data-screen>`，
+改 `--accent` 和文案，再到 `.navbar__dots` 补一个 `data-dot` 按钮。
+屏幕数量由 DOM 决定，不用改 TS。
+
+**替换首屏为视频**：在 `index.html` 的 `.hero__bg` 内加
 
 ```html
 <video class="hero__video" autoplay muted loop playsinline poster="/kv.jpg">
@@ -118,10 +136,10 @@ src/
 
 | 入口 | JS (gzip) | 说明 |
 |---|---|---|
-| scroll-story | ~80KB | 27.7KB 业务 + 52KB 共享 GSAP |
-| single-screen | ~55KB | 3KB 业务 + 52KB 共享 GSAP |
+| scroll-story | ~51KB | 23.4KB 业务 + 27.6KB 共享 GSAP/Lenis |
+| single-screen | ~29KB | 1.4KB 业务 + 27.6KB 共享 GSAP/Lenis |
 
-- GSAP 由 Vite 自动拆成共享 chunk，两个入口只加载一次
+- 共享依赖由 Vite 自动拆成独立 chunk，两个入口复用同一份
 - 移动端与 `prefers-reduced-motion` 下不启用 pin 与平滑滚动
 - 所有动画作用在 `transform` / `opacity` 上，不触发重排
 
@@ -132,9 +150,9 @@ Chrome / Edge / Safari 最新两个版本，Firefox 最新版。
 
 ## Roadmap
 
-- [ ] Vitest 覆盖 shared 层（reveal 降级分支、preloader 最短时长）
+- [ ] Vitest 覆盖 shared 层（reveal 降级分支、preloader 最短时长、pageSwitch 边界）
 - [ ] Playwright 视觉回归（防止改动画改崩版式）
-- [ ] React 版模板（复用 `src/shared/`，只重写组件层）
+- [ ] 可选适配包：把 `shared/` 包成 Vue / React composable（核心保持无框架）
 - [ ] 主题预设（暗色 / 亮色 / 高对比）
 - [ ] 多语言路由示例（繁 / 简 / EN）
 

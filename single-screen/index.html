@@ -12,7 +12,194 @@
     <title>SERAPH — 单屏切页模板</title>
   </head>
   <body>
-    <div id="app"></div>
+    <div class="app">
+      <!-- ============ 预加载 ============ -->
+      <div class="preloader">
+        <div class="preloader__inner">
+          <p class="preloader__brand">SERAPH</p>
+          <p class="preloader__hint">正在载入世界</p>
+          <div class="preloader__bar"><i></i></div>
+          <p class="preloader__num">0</p>
+        </div>
+      </div>
+
+      <!-- ============ 顶部栏 ============ -->
+      <header class="topbar">
+        <a class="topbar__brand" href="#screen-0">SERAPH</a>
+        <div class="topbar__right">
+          <span class="topbar__lang">简 / 繁 / EN</span>
+          <!-- 相对路径，部署到 /<repo>/single-screen/ 下也能正确回到主站 -->
+          <a class="topbar__enter" href="../">进入官网</a>
+        </div>
+      </header>
+
+      <!-- ============ 屏幕：加/删/换顺序都只需改这一段 HTML ============ -->
+      <main class="stage">
+        <section
+          class="screen"
+          id="screen-0"
+          data-screen
+          style="--accent: #7c5cff; --accent-2: #45e0ff"
+        >
+          <div class="screen__bg" aria-hidden="true">
+            <span class="screen__orb screen__orb--a"></span>
+            <span class="screen__orb screen__orb--b"></span>
+            <span class="screen__grid"></span>
+            <span class="screen__figure"></span>
+          </div>
+
+          <div class="screen__content">
+            <p class="screen__eyebrow" data-stagger>Prologue — 01</p>
+            <h1 class="screen__title" data-stagger>余烬之上</h1>
+            <p class="screen__en" data-stagger>ABOVE THE EMBERS</p>
+            <p class="screen__desc" data-stagger>
+              当最后一座灯塔熄灭，旅人把名字留在了潮水里。这是序章，也是所有人重写的起点。
+            </p>
+
+            <div class="screen__tags" data-stagger>
+              <span>序章</span><span>世界观</span>
+            </div>
+
+            <a class="screen__cta" href="#screen-1" data-stagger data-next>
+              开始探索 <em>→</em>
+            </a>
+          </div>
+
+          <div class="screen__side" aria-hidden="true">
+            <span class="screen__side-text">ABOVE THE EMBERS</span>
+            <span class="screen__side-line"></span>
+          </div>
+        </section>
+
+        <section
+          class="screen"
+          id="screen-1"
+          data-screen
+          style="--accent: #45e0ff; --accent-2: #7c5cff"
+        >
+          <div class="screen__bg" aria-hidden="true">
+            <span class="screen__orb screen__orb--a"></span>
+            <span class="screen__orb screen__orb--b"></span>
+            <span class="screen__grid"></span>
+            <span class="screen__figure"></span>
+          </div>
+
+          <div class="screen__content">
+            <p class="screen__eyebrow" data-stagger>World — 02</p>
+            <h1 class="screen__title" data-stagger>潮汐尽头</h1>
+            <p class="screen__en" data-stagger>WHERE THE TIDE ENDS</p>
+            <p class="screen__desc" data-stagger>
+              七座浮岛随潮汐漂移，每一座都记着一段被抹去的历史。风穿过回廊时，会带走说谎的人。
+            </p>
+
+            <div class="screen__tags" data-stagger>
+              <span>地图</span><span>设定</span>
+            </div>
+          </div>
+
+          <div class="screen__side" aria-hidden="true">
+            <span class="screen__side-text">WHERE THE TIDE ENDS</span>
+            <span class="screen__side-line"></span>
+          </div>
+        </section>
+
+        <section
+          class="screen"
+          id="screen-2"
+          data-screen
+          style="--accent: #ff6fae; --accent-2: #7c5cff"
+        >
+          <div class="screen__bg" aria-hidden="true">
+            <span class="screen__orb screen__orb--a"></span>
+            <span class="screen__orb screen__orb--b"></span>
+            <span class="screen__grid"></span>
+            <span class="screen__figure"></span>
+          </div>
+
+          <div class="screen__content">
+            <p class="screen__eyebrow" data-stagger>Character — 03</p>
+            <h1 class="screen__title" data-stagger>无名守望</h1>
+            <p class="screen__en" data-stagger>THE NAMELESS WATCH</p>
+            <p class="screen__desc" data-stagger>
+              她不记得自己的名字，却记得每一个被她送走的人。守塔人的职责是点亮，不是挽留。
+            </p>
+
+            <div class="screen__tags" data-stagger>
+              <span>角色</span><span>CV</span>
+            </div>
+          </div>
+
+          <div class="screen__side" aria-hidden="true">
+            <span class="screen__side-text">THE NAMELESS WATCH</span>
+            <span class="screen__side-line"></span>
+          </div>
+        </section>
+
+        <section
+          class="screen"
+          id="screen-3"
+          data-screen
+          style="--accent: #ffbe5a; --accent-2: #ff6fae"
+        >
+          <div class="screen__bg" aria-hidden="true">
+            <span class="screen__orb screen__orb--a"></span>
+            <span class="screen__orb screen__orb--b"></span>
+            <span class="screen__grid"></span>
+            <span class="screen__figure"></span>
+          </div>
+
+          <div class="screen__content">
+            <p class="screen__eyebrow" data-stagger>Pre-register — 04</p>
+            <h1 class="screen__title" data-stagger>启程之时</h1>
+            <p class="screen__en" data-stagger>SET FORTH</p>
+            <p class="screen__desc" data-stagger>
+              预约通道已开启。当第一缕潮声响起，我们会在灯塔下等你。
+            </p>
+
+            <div class="screen__tags" data-stagger>
+              <span>预约</span><span>平台</span>
+            </div>
+
+            <div class="screen__platforms" data-stagger>
+              <a href="#screen-3">Windows</a>
+              <a href="#screen-3">iOS</a>
+              <a href="#screen-3">Android</a>
+              <a href="#screen-3">PlayStation</a>
+            </div>
+          </div>
+
+          <div class="screen__side" aria-hidden="true">
+            <span class="screen__side-text">SET FORTH</span>
+            <span class="screen__side-line"></span>
+          </div>
+        </section>
+      </main>
+
+      <!-- ============ 底部导航 ============ -->
+      <footer class="navbar">
+        <div class="navbar__dots">
+          <button type="button" class="navbar__dot is-active" data-dot="0" aria-label="余烬之上">01</button>
+          <button type="button" class="navbar__dot" data-dot="1" aria-label="潮汐尽头">02</button>
+          <button type="button" class="navbar__dot" data-dot="2" aria-label="无名守望">03</button>
+          <button type="button" class="navbar__dot" data-dot="3" aria-label="启程之时">04</button>
+        </div>
+
+        <div class="navbar__arrows">
+          <button type="button" data-prev aria-label="上一屏">←</button>
+          <button type="button" data-next-screen aria-label="下一屏">→</button>
+        </div>
+      </footer>
+
+      <!-- ============ 竖屏提示 ============ -->
+      <div class="portrait-tip">
+        <div class="portrait-tip__box">
+          <div class="portrait-tip__icon"></div>
+          <p class="portrait-tip__title">请横屏观看</p>
+          <p class="portrait-tip__desc">本页为横屏体验设计</p>
+        </div>
+      </div>
+    </div>
+
     <script type="module" src="/src/demos/single-screen/main.ts"></script>
   </body>
 </html>

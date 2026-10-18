@@ -1,4 +1,3 @@
-import vue from "@vitejs/plugin-vue";
 import { defineConfig } from "vite";
 import { fileURLToPath, URL } from "node:url";
 
@@ -7,14 +6,12 @@ import { fileURLToPath, URL } from "node:url";
 const base = process.env.VITE_BASE || "/";
 
 // 两个模板各自一个 HTML 入口：
-//   /            滚动叙事（scroll-story）
-//   /single-screen/  单屏切页（single-screen）
-const entry = (path: string) =>
-  fileURLToPath(new URL(path, import.meta.url));
+//   /                 滚动叙事（scroll-story）
+//   /single-screen/   单屏切页（single-screen）
+const entry = (path: string) => fileURLToPath(new URL(path, import.meta.url));
 
 export default defineConfig({
   base,
-  plugins: [vue()],
   build: {
     rollupOptions: {
       input: {
