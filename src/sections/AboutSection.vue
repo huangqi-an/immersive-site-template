@@ -102,7 +102,9 @@ onUnmounted(() => ctx?.revert());
 <style scoped>
 .about {
   position: relative;
-  overflow: hidden;
+  /* 用 clip 而不是 hidden：hidden 会让本元素成为滚动容器，
+     内部的 position: sticky 直接失效（左侧标题吸不住）。 */
+  overflow: clip;
 }
 
 .about__orb {

@@ -1,8 +1,19 @@
 {
   "name": "anime-creative",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
   "type": "module",
+  "description": "沉浸式官网模板：面向游戏、番剧与世界观企划的叙事型落地页",
+  "license": "MIT",
+  "keywords": [
+    "vue",
+    "vite",
+    "gsap",
+    "scrolltrigger",
+    "lenis",
+    "landing-page",
+    "template"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc -b && vite build",
