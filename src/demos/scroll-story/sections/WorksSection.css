@@ -1,0 +1,196 @@
+.works {
+  position: relative;
+  padding-block: var(--section-y) 0;
+  overflow: hidden;
+}
+
+.works__head {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: clamp(32px, 5vw, 64px);
+}
+
+.works__title {
+  font-size: clamp(40px, 7vw, 92px);
+  display: flex;
+  align-items: baseline;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.works__title em {
+  font-family: var(--font-body);
+  font-style: normal;
+  font-size: 12px;
+  letter-spacing: 0.34em;
+  color: var(--text-faint);
+}
+
+/* 未启用 pin 时（移动端 / reduced-motion）退化为原生横向滚动 */
+.works__viewport {
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x proximity;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.works__viewport::-webkit-scrollbar {
+  display: none;
+}
+
+/* pin 生效时由 GSAP 接管位移，关掉原生滚动避免双份控制 */
+.works--pinned .works__viewport {
+  overflow: hidden;
+}
+
+.works--pinned {
+  height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-block: 0;
+}
+
+.works__track {
+  display: flex;
+  gap: clamp(16px, 2.4vw, 36px);
+  padding-inline: var(--gutter);
+  width: max-content;
+  will-change: transform;
+}
+
+.card {
+  flex: 0 0 auto;
+  width: clamp(260px, 34vw, 460px);
+  scroll-snap-align: center;
+}
+
+.card__media {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: linear-gradient(150deg, #191436 0%, #0b0d1c 55%, #101a2e 100%);
+  display: grid;
+  place-items: end start;
+  padding: 22px;
+  transition: transform var(--dur-base) var(--ease-out);
+}
+
+.card__media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at 72% 18%,
+    rgba(124, 92, 255, 0.5),
+    transparent 58%
+  );
+  mix-blend-mode: screen;
+  opacity: 0.9;
+}
+
+/* 每张卡换一个色相，避免占位图看起来完全一样 */
+.card:nth-child(2) .card__media::after {
+  background: radial-gradient(
+    circle at 30% 78%,
+    rgba(69, 224, 255, 0.42),
+    transparent 60%
+  );
+}
+
+.card:nth-child(3) .card__media::after {
+  background: radial-gradient(
+    circle at 50% 30%,
+    rgba(255, 120, 180, 0.34),
+    transparent 62%
+  );
+}
+
+.card:nth-child(4) .card__media::after {
+  background: radial-gradient(
+    circle at 80% 70%,
+    rgba(255, 190, 90, 0.3),
+    transparent 60%
+  );
+}
+
+.card:hover .card__media {
+  transform: translateY(-6px);
+}
+
+.card__index {
+  font-family: var(--font-display);
+  font-size: clamp(48px, 6vw, 84px);
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.16);
+  position: relative;
+  z-index: 1;
+}
+
+.card__tag {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 5px 10px;
+  z-index: 1;
+}
+
+.card__meta {
+  padding-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  position: relative;
+}
+
+.card__title {
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+}
+
+.card__en {
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  color: var(--text-faint);
+}
+
+.card__year {
+  position: absolute;
+  right: 0;
+  top: 16px;
+  font-size: 11px;
+  color: var(--text-faint);
+}
+
+.works__end {
+  flex: 0 0 auto;
+  width: clamp(200px, 22vw, 300px);
+  align-self: center;
+  padding-right: var(--gutter);
+  display: grid;
+  gap: 12px;
+}
+
+.works__end-text {
+  font-family: var(--font-display);
+  font-size: clamp(22px, 2.6vw, 34px);
+  line-height: 1.4;
+  color: var(--text-dim);
+}
+
+@media (max-width: 899px) {
+  .works {
+    padding-block: var(--section-y);
+  }
+}
