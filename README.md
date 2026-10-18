@@ -8,6 +8,8 @@
 
 Vue 3 · Vite · TypeScript · GSAP ScrollTrigger · Lenis
 
+[在线预览](https://huangqi-an.github.io/immersive-site-template/) · [源码](https://github.com/huangqi-an/immersive-site-template)
+
 </div>
 
 ![首屏预览](docs/preview.png)
