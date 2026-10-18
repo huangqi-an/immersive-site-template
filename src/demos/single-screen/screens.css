@@ -1,0 +1,491 @@
+/* 单屏模板的页面级样式：文档不滚动，所有切换靠状态驱动 */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+.app {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* ---------- 预加载 ---------- */
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  background: var(--bg);
+}
+
+.preloader__inner {
+  display: grid;
+  justify-items: center;
+  gap: 14px;
+  width: min(320px, 70vw);
+}
+
+.preloader__brand {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 22px;
+  letter-spacing: 0.5em;
+}
+
+.preloader__hint {
+  margin: 0;
+  font-size: 11px;
+  letter-spacing: 0.34em;
+  color: var(--text-faint);
+}
+
+.preloader__bar {
+  width: 100%;
+  height: 1px;
+  background: var(--line);
+  margin-top: 10px;
+}
+
+.preloader__bar i {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+}
+
+.preloader__num {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 42px;
+  line-height: 1;
+  color: var(--text-dim);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- 顶部栏 ---------- */
+.topbar {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22px clamp(20px, 4vw, 54px);
+}
+
+.topbar__brand {
+  font-family: var(--font-display);
+  font-size: 18px;
+  letter-spacing: 0.36em;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.topbar__right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.topbar__lang {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--text-faint);
+}
+
+.topbar__enter {
+  padding: 9px 20px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  color: var(--text);
+  text-decoration: none;
+  transition: border-color var(--dur-fast), background var(--dur-fast);
+}
+
+.topbar__enter:hover {
+  border-color: rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* ---------- 屏幕 ---------- */
+.stage {
+  position: relative;
+  height: 100%;
+}
+
+.screen {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  align-items: center;
+  padding: clamp(80px, 10vh, 140px) clamp(20px, 6vw, 96px);
+  opacity: 0;
+  visibility: hidden;
+  transform-origin: center;
+}
+
+.screen__bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.screen__orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+}
+
+.screen__orb--a {
+  width: 52vw;
+  height: 52vw;
+  left: -14vw;
+  top: -18vw;
+  background: radial-gradient(circle, var(--accent) 0%, transparent 66%);
+  opacity: 0.6;
+}
+
+.screen__orb--b {
+  width: 40vw;
+  height: 40vw;
+  right: -8vw;
+  bottom: -16vw;
+  background: radial-gradient(circle, var(--accent-2) 0%, transparent 68%);
+  opacity: 0.35;
+}
+
+.screen__grid {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 120px 120px;
+  mask-image: radial-gradient(circle at 40% 50%, #000 0%, transparent 70%);
+  opacity: 0.2;
+}
+
+/* 立绘占位：接入真实素材时把这层换成一个 <img>/<video> 即可 */
+.screen__figure {
+  position: absolute;
+  right: 6vw;
+  top: -10%;
+  width: 26vw;
+  height: 120%;
+  border-radius: 50%;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    var(--accent) 38%,
+    var(--accent-2) 62%,
+    transparent 100%
+  );
+  opacity: 0.3;
+  filter: blur(64px);
+  mix-blend-mode: screen;
+}
+
+/* ---------- 内容 ---------- */
+.screen__content {
+  position: relative;
+  z-index: 2;
+  max-width: min(760px, 60vw);
+  display: grid;
+  gap: 14px;
+  justify-items: start;
+}
+
+.screen__eyebrow {
+  margin: 0;
+  font-size: 11px;
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.screen__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(52px, 8.4vw, 132px);
+  line-height: 0.98;
+  letter-spacing: 0.04em;
+  background: linear-gradient(
+    180deg,
+    #fff 18%,
+    color-mix(in srgb, var(--accent) 55%, #ffffff) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.screen__en {
+  margin: 0;
+  font-size: 12px;
+  letter-spacing: 0.46em;
+  color: color-mix(in srgb, var(--accent) 70%, #ffffff);
+}
+
+.screen__desc {
+  margin: 6px 0 0;
+  max-width: 42ch;
+  font-size: clamp(14px, 1.2vw, 16px);
+  line-height: 1.9;
+  color: var(--text-dim);
+}
+
+.screen__tags {
+  display: flex;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.screen__tags span {
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  color: var(--text-dim);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 5px 12px;
+}
+
+.screen__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 18px;
+  padding: 13px 28px;
+  border-radius: 999px;
+  font-size: 13px;
+  letter-spacing: 0.18em;
+  color: #fff;
+  text-decoration: none;
+  background: linear-gradient(
+    100deg,
+    var(--accent),
+    color-mix(in srgb, var(--accent) 40%, var(--accent-2))
+  );
+  box-shadow: 0 10px 44px color-mix(in srgb, var(--accent) 45%, transparent);
+  transition: transform var(--dur-fast);
+}
+
+.screen__cta:hover {
+  transform: translateY(-2px);
+}
+
+.screen__cta em {
+  font-style: normal;
+}
+
+.screen__platforms {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.screen__platforms a {
+  padding: 11px 22px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  color: var(--text-dim);
+  text-decoration: none;
+  transition: color var(--dur-fast), border-color var(--dur-fast),
+    background var(--dur-fast);
+}
+
+.screen__platforms a:hover {
+  color: var(--text);
+  border-color: rgba(255, 255, 255, 0.36);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+/* 右侧竖排英文 */
+.screen__side {
+  position: absolute;
+  right: clamp(24px, 3vw, 48px);
+  top: 50%;
+  transform: translateY(-50%);
+  display: grid;
+  justify-items: center;
+  gap: 16px;
+  z-index: 2;
+}
+
+.screen__side-text {
+  writing-mode: vertical-rl;
+  font-size: 10px;
+  letter-spacing: 0.5em;
+  color: var(--text-faint);
+}
+
+.screen__side-line {
+  width: 1px;
+  height: 64px;
+  background: linear-gradient(180deg, var(--line), transparent);
+}
+
+/* ---------- 底部导航 ---------- */
+.navbar {
+  position: fixed;
+  inset: auto 0 0;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px clamp(20px, 4vw, 54px) 26px;
+}
+
+.navbar__dots {
+  display: flex;
+  gap: 18px;
+}
+
+.navbar__dot {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  padding: 4px 0;
+  cursor: pointer;
+  color: rgba(238, 241, 255, 0.3);
+  font: inherit;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  position: relative;
+  transition: color var(--dur-fast);
+}
+
+.navbar__dot::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s var(--ease-out);
+}
+
+.navbar__dot.is-active {
+  color: var(--text);
+}
+
+.navbar__dot.is-active::after {
+  transform: scaleX(1);
+}
+
+.navbar__arrows {
+  display: flex;
+  gap: 8px;
+}
+
+.navbar__arrows button {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text);
+  font-size: 14px;
+  cursor: pointer;
+  transition: border-color var(--dur-fast), background var(--dur-fast);
+}
+
+.navbar__arrows button:hover:not(:disabled) {
+  border-color: rgba(255, 255, 255, 0.42);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.navbar__arrows button:disabled {
+  opacity: 0.28;
+  cursor: default;
+}
+
+/* ---------- 竖屏提示 ---------- */
+.portrait-tip {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  background: var(--bg);
+  place-items: center;
+}
+
+.portrait-tip__box {
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+  text-align: center;
+}
+
+.portrait-tip__icon {
+  width: 46px;
+  height: 26px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  transform: rotate(90deg);
+  margin-bottom: 10px;
+}
+
+.portrait-tip__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 20px;
+  letter-spacing: 0.3em;
+}
+
+.portrait-tip__desc {
+  margin: 0;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  color: var(--text-faint);
+}
+
+@media (orientation: portrait) and (max-width: 900px) {
+  .portrait-tip {
+    display: grid;
+  }
+}
+
+@media (max-width: 760px) {
+  .screen__content {
+    max-width: 100%;
+  }
+  .screen__figure {
+    opacity: 0.3;
+  }
+  .screen__side {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .screen {
+    transition: none;
+  }
+}
