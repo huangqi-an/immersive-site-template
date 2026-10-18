@@ -43,6 +43,15 @@ npm run dev      # http://localhost:5173
 npm run build    # vue-tsc 类型检查 + 生产构建
 ```
 
+## 部署
+
+推送到 `main` 会触发 `.github/workflows/deploy.yml`：构建 → 上传产物 → 发布到 GitHub Pages。
+`base` 由仓库名自动推导，改仓库名不用动配置。
+
+**首次使用需要手动做一步**：仓库 `Settings → Pages → Source` 选 **GitHub Actions**。
+`GITHUB_TOKEN` 无权通过 API 创建 Pages 站点（会报 `Resource not accessible by integration`），
+所以这一步没法自动化，只能点一次。
+
 ## 目录结构
 
 ```

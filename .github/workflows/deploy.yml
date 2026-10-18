@@ -35,11 +35,11 @@ jobs:
         env:
           VITE_BASE: /${{ github.event.repository.name }}/
 
-      # 首次运行时仓库还没启用 Pages，enablement 会通过 API 自动创建站点，
-      # 并把发布来源设为 GitHub Actions（需 pages: write 权限）
+      # 注意：这里不能加 enablement: true。
+      # GITHUB_TOKEN 没有创建 Pages 站点的权限（会报 Resource not accessible by
+      # integration），首次必须由仓库管理员在 Settings → Pages 把 Source 设为
+      # GitHub Actions，只做一次，之后本步骤只读取站点配置。
       - uses: actions/configure-pages@v5
-        with:
-          enablement: true
 
       - uses: actions/upload-pages-artifact@v3
         with:
