@@ -2,6 +2,7 @@
 import HeroSection from "./sections/HeroSection.vue";
 import MarqueeSection from "./sections/MarqueeSection.vue";
 import WorksSection from "./sections/WorksSection.vue";
+import AboutSection from "./sections/AboutSection.vue";
 import { useSmoothScroll } from "./composables/useSmoothScroll";
 
 useSmoothScroll();
@@ -12,5 +13,6 @@ useSmoothScroll();
     <HeroSection />
     <MarqueeSection />
     <WorksSection />
+    <AboutSection />
   </main>
 </template>
