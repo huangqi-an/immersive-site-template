@@ -1,0 +1,39 @@
+/* ============================================================
+   设计令牌 —— 所有视觉变量集中在这里，换主题只改这个文件
+   ============================================================ */
+:root {
+  color-scheme: dark;
+
+  /* 底色：深夜蓝黑，留出视频/图片的压暗空间 */
+  --bg: #05060c;
+  --bg-soft: #0a0d1a;
+  --surface: rgba(255, 255, 255, 0.04);
+  --line: rgba(255, 255, 255, 0.12);
+
+  /* 文字 */
+  --text: #eef1ff;
+  --text-dim: #9aa3c7;
+  --text-faint: rgba(238, 241, 255, 0.42);
+
+  /* 强调色：紫 + 青，二次元科幻的经典对撞 */
+  --accent: #7c5cff;
+  --accent-2: #45e0ff;
+  --accent-soft: rgba(124, 92, 255, 0.18);
+  --glow: 0 0 80px rgba(124, 92, 255, 0.32);
+
+  /* 排版 */
+  --font-display: "Cormorant Garamond", "Songti SC", "Noto Serif CJK SC",
+    SimSun, serif;
+  --font-body: "Inter", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+
+  /* 尺寸 */
+  --maxw: 1280px;
+  --gutter: clamp(20px, 5vw, 72px);
+  --section-y: clamp(88px, 12vh, 160px);
+
+  /* 动效 */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-fast: 0.25s;
+  --dur-base: 0.6s;
+  --dur-slow: 1.2s;
+}

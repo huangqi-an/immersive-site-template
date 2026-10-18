@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
+import HeroSection from "./sections/HeroSection.vue";
 </script>
 
 <template>
-  <HelloWorld />
+  <main class="page">
+    <HeroSection />
+  </main>
 </template>
