@@ -154,10 +154,12 @@ export function createPageSwitch(
     goTo(index + (e.deltaY > 0 ? 1 : -1));
   };
 
-  // 初始态：第一屏可见，其余隐藏
+  // 初始态：第一屏可见，其余隐藏。
+  // 注意：这里必须是 opacity 1。切屏逻辑只会把它淡出，不会主动把它点亮，
+  // 所以若初始为 0，加载完成后会看到一屏空白（入场动画由调用方负责子元素）。
   screens.forEach((el, i) => {
     if (i === 0) {
-      gsap.set(el, { visibility: "visible", opacity: reduced ? 1 : 0 });
+      gsap.set(el, { visibility: "visible", opacity: 1 });
       el.setAttribute("aria-hidden", "false");
     } else {
       gsap.set(el, { visibility: "hidden", opacity: 0 });

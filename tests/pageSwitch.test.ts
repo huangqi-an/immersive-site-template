@@ -25,6 +25,14 @@ describe("createPageSwitch", () => {
     expect(screens[3].getAttribute("aria-hidden")).toBe("true");
   });
 
+  it("初始第一屏必须不透明，否则加载完成后是白屏", () => {
+    createPageSwitch();
+
+    const first = document.querySelector<HTMLElement>("[data-screen]");
+    expect(first?.style.opacity).toBe("1");
+    expect(first?.style.visibility).toBe("visible");
+  });
+
   it("越界索引不会改变当前屏", () => {
     const sw = createPageSwitch();
 
